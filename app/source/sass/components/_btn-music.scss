@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+.btn-music {
+    width: 2rem;
+    height: 2rem;
+    background-color: transparent;
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 999;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    padding: 0;
+    i {
+        width: 2rem;
+        height: 2rem;
+        text-align: center;
+        line-height: 2rem;
+        color: #fff;
+        font-size: 1rem;
+        position: absolute;
+        top: -0.1rem;
+        left: -0.2rem;
+    }
+}
