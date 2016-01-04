@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+.btn-swipe {
+    width: 2rem;
+    height: 2rem;
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translate3d(-50%, 0, 0);
+    z-index: 999;
+    background: none;
+    border: none;
+    padding: 0;
+    i {
+        width: 2rem;
+        height: 2rem;
+        text-align: center;
+        line-height: 2rem;
+        color: #fff;
+        font-size: 2rem;
+    }
+}
+
+.fp-viewing-thirdPage .btn-swipe {
+    display: none;
+}
