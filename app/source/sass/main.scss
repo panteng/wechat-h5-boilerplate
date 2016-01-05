@@ -8,6 +8,7 @@
 @import "components/item-image";
 @import "components/btn-music";
 @import "components/btn-swipe";
+@import "components/swiper-slide";
 
 // sections
 @import "slides/_slide-1";
@@ -15,4 +16,4 @@
 @import "slides/_slide-3";
 
 // layouts
-@import "layouts/swiper";
+@import "layouts/_swiper-container";
