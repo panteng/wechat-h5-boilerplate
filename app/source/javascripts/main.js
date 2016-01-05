@@ -1,8 +1,9 @@
 // load dependencies
 var $ = jQuery = require('jquery');
-require('swiper');
+var Swiper = require('swiper');
 
 window.onload = function () {
+    require('move-js');
     // init Swiper instance
     new Swiper('.swiper-container', {
         direction: 'vertical',
@@ -12,6 +13,9 @@ window.onload = function () {
             } else {
                 $('.btn-swipe').show();
             }
+        },
+        onSlideChangeEnd: function (swiper) {
+            console.log(swiper);
         }
     });
 
