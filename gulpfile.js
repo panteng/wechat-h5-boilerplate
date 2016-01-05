@@ -76,7 +76,7 @@ gulp.task('get-css', function () {
 
     return gulp.src(stylesheets)
         .pipe(gulp.dest('app/source/stylesheets'));
-})
+});
 
 // compile sass(app/sass) into app/source/stylesheets/compiled-style.css
 gulp.task('compile-sass', function () {
