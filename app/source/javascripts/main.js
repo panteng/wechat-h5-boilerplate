@@ -1,12 +1,17 @@
-// load dependencies
-var $ = jQuery = require('jquery');
-var Swiper = require('swiper');
-
 window.onload = function () {
-    require('move-js');
+    // load dependencies
+    var $ = jQuery = require('jquery');
+    var Swiper = require('swiper');
+    var move = require('move-js');
+    var animationControl = require('./animation-control.js');
+
     // init Swiper instance
     new Swiper('.swiper-container', {
         direction: 'vertical',
+        onInit: function (swiper) {
+            animationControl.initAnimationItems();
+            animationControl.execAnimation(swiper);
+        },
         onSlideChangeStart: function (swiper) {     // hide .btn-swipe when reaching the last slide
             if (swiper.activeIndex === swiper.slides.length - 1) {
                 $('.btn-swipe').hide();
@@ -15,7 +20,7 @@ window.onload = function () {
             }
         },
         onSlideChangeEnd: function (swiper) {
-            console.log(swiper);
+            animationControl.execAnimation(swiper);
         }
     });
 
