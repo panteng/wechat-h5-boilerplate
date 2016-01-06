@@ -1,38 +1,14 @@
 window.onload = function () {
-    // load dependencies
+    // 加载依赖
     var $ = jQuery = require('jquery');
     var Swiper = require('swiper');
     var move = require('move-js');
     var animationControl = require('./animation-control.js');
 
+    // 获取背景音乐DOM
     var bgMusic = $('audio').get(0);
 
-    // init Swiper instance
-    new Swiper('.swiper-container', {
-        direction: 'vertical',
-        onInit: function (swiper) {
-            animationControl.initAnimationItems();
-            animationControl.execAnimation(swiper);
-        },
-        onSlideChangeStart: function (swiper) {     // hide .btn-swipe when reaching the last slide
-            if (swiper.activeIndex === swiper.slides.length - 1) {
-                $('.btn-swipe').hide();
-            } else {
-                $('.btn-swipe').show();
-            }
-        },
-        onSlideChangeEnd: function (swiper) {
-            animationControl.execAnimation(swiper);
-        },
-        onTouchStart: function (swiper, event) {
-            bgMusic.play();
-        }
-    });
-
-    // hide loading-overlay when page finishes loading
-    $('.loading-overlay').slideUp();
-
-    // background music control button
+    // 背景音乐控制按钮
     $('.btn-music').click(function () {
         if (bgMusic.paused) {
             bgMusic.play();
@@ -42,4 +18,29 @@ window.onload = function () {
             $(this).addClass('paused');
         }
     });
+
+    // 初始化Swiper实例
+    new Swiper('.swiper-container', {
+        direction: 'vertical',
+        onInit: function (swiper) {
+            animationControl.initAnimationItems();  // 初始化动画元素
+            animationControl.execAnimation(swiper); // 执行第一个slide的动画
+        },
+        onSlideChangeStart: function (swiper) {     // 当滑动到最后一个slide时，隐藏.btn-swipe
+            if (swiper.activeIndex === swiper.slides.length - 1) {
+                $('.btn-swipe').hide();
+            } else {
+                $('.btn-swipe').show();
+            }
+        },
+        onSlideChangeEnd: function (swiper) {       // 执行当前slide的动画
+            animationControl.execAnimation(swiper);
+        },
+        onTouchStart: function (swiper, event) {    // 由于移动端浏览器不支持audio的自动播放，因此背景音乐的播放需要由用户点击屏幕后触发
+            bgMusic.play();
+        }
+    });
+
+    // 页面完成加载后，隐藏加载动画
+    $('.loading-overlay').slideUp();
 };
