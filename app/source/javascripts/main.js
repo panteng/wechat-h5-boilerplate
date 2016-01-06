@@ -2,7 +2,6 @@ window.onload = function () {
     // º”‘ÿ“¿¿µ
     var $ = jQuery = require('jquery');
     var Swiper = require('swiper');
-    var move = require('move-js');
     var animationControl = require('./animation-control.js');
 
     // ªÒ»°±≥æ∞“Ù¿÷DOM
