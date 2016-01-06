@@ -5,6 +5,8 @@ window.onload = function () {
     var move = require('move-js');
     var animationControl = require('./animation-control.js');
 
+    var bgMusic = $('audio').get(0);
+
     // init Swiper instance
     new Swiper('.swiper-container', {
         direction: 'vertical',
@@ -21,21 +23,23 @@ window.onload = function () {
         },
         onSlideChangeEnd: function (swiper) {
             animationControl.execAnimation(swiper);
+        },
+        onTouchStart: function (swiper, event) {
+            bgMusic.play();
         }
     });
 
     // hide loading-overlay when page finishes loading
     $('.loading-overlay').slideUp();
-    var bgMusic = $('audio').get(0);
-    bgMusic.play();
 
     // background music control button
     $('.btn-music').click(function () {
         if (bgMusic.paused) {
             bgMusic.play();
+            $(this).removeClass('paused');
         } else {
             bgMusic.pause();
+            $(this).addClass('paused');
         }
-        $(this).toggleClass('paused');
     });
 };
