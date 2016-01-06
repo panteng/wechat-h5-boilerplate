@@ -10,6 +10,7 @@
   "license": "MIT",
   "devDependencies": {
     "browser-sync": "^2.10.1",
+    "del": "^2.2.0",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-browserify": "^0.5.1",
