@@ -26,10 +26,11 @@ window.onload = function () {
 
     // hide loading-overlay when page finishes loading
     $('.loading-overlay').slideUp();
+    var bgMusic = $('audio').get(0);
+    bgMusic.play();
 
     // background music control button
     $('.btn-music').click(function () {
-        var bgMusic = $('audio').get(0);
         if (bgMusic.paused) {
             bgMusic.play();
         } else {

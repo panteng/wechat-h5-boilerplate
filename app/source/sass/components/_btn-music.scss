@@ -8,7 +8,7 @@
     top: 1.5rem;
     right: 1.5rem;
     z-index: 999;
-    border: 2px solid #fff;
+    border: 0.125rem solid #fff;
     border-radius: 50%;
     padding: 0;
     animation: btnMusicAni 3s infinite linear;
@@ -20,8 +20,8 @@
         color: #fff;
         font-size: 1rem;
         position: absolute;
-        top: -0.1rem;
-        left: -0.2rem;
+        top: -0.125rem;
+        left: -0.125rem;
     }
     &.paused {
         opacity: 0.4;
