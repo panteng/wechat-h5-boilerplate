@@ -60,7 +60,8 @@ gulp.task('publish-audios', function () {
 gulp.task('get-css', function () {
     var stylesheets = [
         'node_modules/normalize.css/normalize.css',
-        'node_modules/swiper/dist/css/swiper.css'
+        'node_modules/swiper/dist/css/swiper.css',
+        'node_modules/animate.css/animate.css'
     ];
 
     return gulp.src(stylesheets)
