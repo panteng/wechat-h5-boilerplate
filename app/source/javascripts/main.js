@@ -6,6 +6,11 @@ window.onload = function () {
 
     // 获取背景音乐DOM
     var bgMusic = $('audio').get(0);
+    // 获取背景音乐开关控制按钮
+    var $btnMusic = $('.btn-music');
+
+    // 获取.btn-swipe
+    var $btnSwipe = $('.btn-swipe');
 
     // 背景音乐控制按钮
     $('.btn-music').click(function () {
@@ -27,16 +32,18 @@ window.onload = function () {
         },
         onSlideChangeStart: function (swiper) {     // 当滑动到最后一个slide时，隐藏.btn-swipe
             if (swiper.activeIndex === swiper.slides.length - 1) {
-                $('.btn-swipe').hide();
+                $btnSwipe.hide();
             } else {
-                $('.btn-swipe').show();
+                $btnSwipe.show();
             }
         },
         onSlideChangeEnd: function (swiper) {       // 执行当前slide的动画
             animationControl.execAnimation(swiper);
         },
         onTouchStart: function (swiper, event) {    // 由于移动端浏览器不支持audio的自动播放，因此背景音乐的播放需要由用户点击屏幕后触发
-            bgMusic.play();
+            if (!$btnMusic.hasClass('paused') && bgMusic.paused) {
+                bgMusic.play();
+            }
         }
     });
 
