@@ -1,0 +1,13 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg">
+<metadata>Copyright (C) 2016 by original authors @ fontello.com</metadata>
+<defs>
+<font id="my-custom-icon-font" horiz-adv-x="1000" >
+<font-face font-family="my-custom-icon-font" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
+<missing-glyph horiz-adv-x="1000" />
+<glyph glyph-name="note" unicode="&#xe800;" d="m381 820q0-42 46-97t90-100 61-119-39-154q-20-34-26-16-2 6 0 16 10 18 6 56t-13 78-43 73-82 41l0-536q2-48-37-95t-105-71q-74-28-143-8t-89 76 20 115 116 85q86 30 158 4l0 652 80 0z" horiz-adv-x="582" />
+<glyph glyph-name="angle-double-up" unicode="&#xe801;" d="m600 118q0-7-6-13l-28-28q-5-5-12-5t-13 5l-220 219-219-219q-5-5-13-5t-13 5l-27 28q-6 6-6 13t6 13l260 260q5 5 12 5t13-5l260-260q6-6 6-13z m0 214q0-7-6-13l-28-28q-5-5-12-5t-13 5l-220 220-219-220q-5-5-13-5t-13 5l-27 28q-6 6-6 13t6 13l260 260q5 6 12 6t13-6l260-260q6-6 6-13z" horiz-adv-x="642.9" />
+</font>
+</defs>
+</svg>

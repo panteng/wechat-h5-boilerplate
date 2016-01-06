@@ -25,10 +25,8 @@
   },
   "dependencies": {
     "animate.css": "^3.4.0",
-    "font-awesome": "^4.5.0",
     "jquery": "^2.1.4",
     "normalize.css": "^3.0.3",
-    "spinkit": "^1.2.5",
     "swiper": "^3.2.7"
   }
 }
