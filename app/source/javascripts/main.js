@@ -1,18 +1,18 @@
 window.onload = function () {
-    // ¼ÓÔØÒÀÀµ
+    // åŠ è½½ä¾èµ–
     var $ = jQuery = require('jquery');
     var Swiper = require('swiper');
     var animationControl = require('./animation-control.js');
 
-    // »ñÈ¡±³¾°ÒôÀÖDOM
+    // è·å–èƒŒæ™¯éŸ³ä¹DOM
     var bgMusic = $('audio').get(0);
-    // »ñÈ¡±³¾°ÒôÀÖ¿ª¹Ø¿ØÖÆ°´Å¥
+    // è·å–èƒŒæ™¯éŸ³ä¹å¼€å…³æ§åˆ¶æŒ‰é’®
     var $btnMusic = $('.btn-music');
 
-    // »ñÈ¡.btn-swipe
+    // è·å–.btn-swipe
     var $btnSwipe = $('.btn-swipe');
 
-    // ±³¾°ÒôÀÖ¿ØÖÆ°´Å¥
+    // èƒŒæ™¯éŸ³ä¹æ§åˆ¶æŒ‰é’®
     $('.btn-music').click(function () {
         if (bgMusic.paused) {
             bgMusic.play();
@@ -23,30 +23,30 @@ window.onload = function () {
         }
     });
 
-    // ³õÊ¼»¯SwiperÊµÀı
+    // åˆå§‹åŒ–Swiperå®ä¾‹
     new Swiper('.swiper-container', {
         direction: 'vertical',
         onInit: function (swiper) {
-            animationControl.initAnimationItems();  // ³õÊ¼»¯¶¯»­ÔªËØ
-            animationControl.execAnimation(swiper); // Ö´ĞĞµÚÒ»¸öslideµÄ¶¯»­
+            animationControl.initAnimationItems();  // åˆå§‹åŒ–åŠ¨ç”»å…ƒç´ 
+            animationControl.execAnimation(swiper); // æ‰§è¡Œç¬¬ä¸€ä¸ªslideçš„åŠ¨ç”»
         },
-        onSlideChangeStart: function (swiper) {     // µ±»¬¶¯µ½×îºóÒ»¸öslideÊ±£¬Òş²Ø.btn-swipe
+        onSlideChangeStart: function (swiper) {     // å½“æ»‘åŠ¨åˆ°æœ€åä¸€ä¸ªslideæ—¶ï¼Œéšè—.btn-swipe
             if (swiper.activeIndex === swiper.slides.length - 1) {
                 $btnSwipe.hide();
             } else {
                 $btnSwipe.show();
             }
         },
-        onSlideChangeEnd: function (swiper) {       // Ö´ĞĞµ±Ç°slideµÄ¶¯»­
+        onSlideChangeEnd: function (swiper) {       // æ‰§è¡Œå½“å‰slideçš„åŠ¨ç”»
             animationControl.execAnimation(swiper);
         },
-        onTouchStart: function (swiper, event) {    // ÓÉÓÚÒÆ¶¯¶Ëä¯ÀÀÆ÷²»Ö§³ÖaudioµÄ×Ô¶¯²¥·Å£¬Òò´Ë±³¾°ÒôÀÖµÄ²¥·ÅĞèÒªÓÉÓÃ»§µã»÷ÆÁÄ»ºó´¥·¢
+        onTouchStart: function (swiper, event) {    // ç”±äºç§»åŠ¨ç«¯æµè§ˆå™¨ä¸æ”¯æŒaudioçš„è‡ªåŠ¨æ’­æ”¾ï¼Œå› æ­¤èƒŒæ™¯éŸ³ä¹çš„æ’­æ”¾éœ€è¦ç”±ç”¨æˆ·ç‚¹å‡»å±å¹•åè§¦å‘
             if (!$btnMusic.hasClass('paused') && bgMusic.paused) {
                 bgMusic.play();
             }
         }
     });
 
-    // Ò³ÃæÍê³É¼ÓÔØºó£¬Òş²Ø¼ÓÔØ¶¯»­
+    // é¡µé¢å®ŒæˆåŠ è½½åï¼Œéšè—åŠ è½½åŠ¨ç”»
     $('.loading-overlay').slideUp();
 };
