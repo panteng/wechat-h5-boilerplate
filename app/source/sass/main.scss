@@ -1,5 +1,11 @@
 @charset "UTF-8";
 
+// vendors
+@import "vendors/normalize";
+@import "vendors/swiper";
+@import "vendors/animate";
+@import "vendors/my-custom-icon-font";
+
 // base
 @import "base/base";
 

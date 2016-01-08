@@ -24,7 +24,7 @@ var autoprefixer = require('gulp-autoprefixer'),
 gulp.task('inject', function () {
     var target = gulp.src('app/source/index.html');
     var sources = gulp.src([
-        'app/dist/stylesheets/bundle.css',
+        'app/dist/stylesheets/app.css',
         'app/dist/javascripts/bundle.js'
     ], {
         read: false
@@ -56,7 +56,7 @@ gulp.task('publish-audios', function () {
         .pipe(gulp.dest('app/dist/audios'));
 });
 
-// 将开发中需要用到的第三方样式表从node_modules中拷贝到app/source/stylesheets
+// 将开发中需要用到的第三方样式表从node_modules中拷贝到app/source/sass/vendors中，并转换为.scss文件
 gulp.task('get-css', function () {
     var stylesheets = [
         'node_modules/normalize.css/normalize.css',
@@ -65,28 +65,21 @@ gulp.task('get-css', function () {
     ];
 
     return gulp.src(stylesheets)
-        .pipe(gulp.dest('app/source/stylesheets'));
+        .pipe(rename({
+            prefix: '_',
+            extname: '.scss'
+        }))
+        .pipe(gulp.dest('app/source/sass/vendors'));
 });
 
-//  将sass（app/sass）编译为app/source/stylesheets/compiled-style.css
+//  将sass（app/sass）编译为app/source/stylesheets/app.css
 gulp.task('compile-sass', function () {
     return gulp.src('app/source/sass/main.scss')
         .pipe(sass({
             outputStyle: 'expanded'
         }).on('error', sass.logError))
         .pipe(autoprefixer())
-        .pipe(rename('compiled-style.css'))
-        .pipe(gulp.dest('app/source/stylesheets'));
-});
-
-// 将开发中用到的所有样式表（app/source/stylesheets/*）合并为一个文件app/dist/stylesheets/bundle.css
-gulp.task('concat-css', function () {
-    var stylesheets = [
-        'app/source/stylesheets/*'
-    ];
-
-    return gulp.src(stylesheets)
-        .pipe(concat('bundle.css'))
+        .pipe(rename('app.css'))
         .pipe(gulp.dest('app/dist/stylesheets'))
         .pipe(browserSync.stream());
 });
@@ -117,7 +110,6 @@ gulp.task('watch', function () {
     // 请使用相对路径, 否则当文件被创建或删除时gulp.watch不会被触发
     gulp.watch('app/source/index.html', ['inject']);
     gulp.watch('app/source/sass/**/*', ['compile-sass']);
-    gulp.watch('app/source/stylesheets/**/*.css', ['concat-css']);
     gulp.watch('app/source/javascripts/**/*', ['browserify']);
     gulp.watch('app/source/fonts/**', ['publish-fonts']);
     gulp.watch('app/source/images/**', ['publish-images']);
@@ -133,12 +125,12 @@ gulp.task('watch', function () {
 gulp.task('clean-dist', function(cb) {
     return del([
         'app/dist/**/*'
-    ], cb)
+    ], cb);
 });
 
 // 默认任务
 gulp.task('default', function (cb) {
-    runSequence(['clean-dist', 'get-css', 'compile-sass'], ['publish-fonts', 'publish-images', 'publish-audios', 'concat-css', 'browserify'], 'inject', 'watch', cb);
+    runSequence(['clean-dist', 'get-css'], ['publish-fonts', 'publish-images', 'publish-audios', 'compile-sass', 'browserify'], 'inject', 'watch', cb);
 });
 
 
@@ -149,7 +141,7 @@ gulp.task('default', function (cb) {
 
 // 压缩app/dist/stylesheets/bundle.css并将结果保存为app/dist/stylesheets/bundle.min.css
 gulp.task('minify-css', function () {
-    return gulp.src('app/dist/stylesheets/bundle.css')
+    return gulp.src('app/dist/stylesheets/app.css')
         .pipe(minifycss())
         .pipe(rename({
             suffix: '.min'
@@ -172,7 +164,7 @@ gulp.task('uglify-js', function () {
 gulp.task('inject-min', function () {
     var target = gulp.src('app/source/index.html');
     var sources = gulp.src([
-        'app/dist/stylesheets/bundle.min.css',
+        'app/dist/stylesheets/app.min.css',
         'app/dist/javascripts/bundle.min.js'
     ], {
         read: false
@@ -189,7 +181,7 @@ gulp.task('inject-min', function () {
 // 删除未经压缩的app/dist/stylesheets/bundle.css和app/dist/javascripts/bundle.js
 gulp.task('del-bundle', function (cb) {
     return del([
-        'app/dist/stylesheedts/bundle.css',
+        'app/dist/stylesheedts/app.css',
         'app/dist/javascripts/bundle.js'
     ], cb);
 });
