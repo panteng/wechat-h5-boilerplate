@@ -9,18 +9,18 @@
 
 ## 开发流程
 1. 将本项目clone到本地
-   在命令行中运行： 
+在命令行中运行： 
 
         git clone --depth=1 https://github.com/panteng/wechat-h5-boilerplate.git <your-project-name>
         cd <your-project-name>
 
 2. 安装第三方包
-   在命令行中运行：
+在命令行中运行：
 
         npm install
 
 3. 开始开发
-   在命令行中运行：
+在命令行中运行：
 
         gulp
 
