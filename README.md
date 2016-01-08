@@ -44,3 +44,13 @@
 
 ## Lisence
 [MIT][8]
+
+
+  [1]: https://raw.githubusercontent.com/panteng/wechat-h5-boilerplate/master/demo.png
+  [2]: http://panteng.me/whb
+  [3]: https://raw.githubusercontent.com/panteng/wechat-h5-boilerplate/master/QR-Code.png
+  [4]: https://github.com/nolimits4web/swiper/
+  [5]: https://github.com/daneden/animate.css
+  [6]: https://github.com/jquery/jquery
+  [7]: https://github.com/necolas/normalize.css
+  [8]: http://opensource.org/licenses/mit-license.html
