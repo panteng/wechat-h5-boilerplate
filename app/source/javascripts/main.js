@@ -1,7 +1,7 @@
 window.onload = function () {
     // 加载依赖
     var $ = jQuery = require('jquery');
-    var Swiper = require('swiper');
+    var Swiper = require('../../../node_modules/swiper/dist/js/swiper.jquery.js');
     var animationControl = require('./animation-control.js');
 
     // 获取背景音乐DOM
