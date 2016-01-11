@@ -15,7 +15,7 @@
 ## 开发流程
 1. 将本项目clone到本地
 
-在命令行中运行： 
+在命令行中运行：
 
         git clone --depth=1 https://github.com/panteng/wechat-h5-boilerplate.git <your-project-name>
         cd <your-project-name>
@@ -50,6 +50,7 @@
 1. 撰写开发文档
 2. 优化动画效果
 3. 优化元素定位方式
+4. 增加更多Slide切换效果
 
 ## Lisence
 [MIT][8]
