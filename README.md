@@ -30,10 +30,10 @@
 
 在命令行中运行：
 
-        gulp
+        gulp dev
 
 ## 发布流程
-1. 停止正在运行的gulp任务（按CTRL+C）
+1. 停止正在运行的gulp dev任务（按CTRL+C）
 2. 执行prod任务
 
    在命令行中运行：
