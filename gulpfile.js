@@ -128,10 +128,13 @@ gulp.task('clean-dist', function(cb) {
     ], cb);
 });
 
-// 默认任务
-gulp.task('default', function (cb) {
+// 开发任务整合
+gulp.task('dev', function (cb) {
     runSequence(['clean-dist', 'get-css'], ['publish-fonts', 'publish-images', 'publish-audios', 'compile-sass', 'browserify'], 'inject', 'watch', cb);
 });
+
+// 默认任务
+gulp.task('default', ['dev']);
 
 
 
