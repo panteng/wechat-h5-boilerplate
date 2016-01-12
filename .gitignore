@@ -6,3 +6,6 @@ app/source/stylesheets/compiled-style.css
 app/source/stylesheets/normalize.css
 app/source/stylesheets/swiper.css
 app/source/stylesheets/animate.css
+app/source/sass/vendors/_animate.scss
+app/source/sass/vendors/_normalize.scss
+app/source/sass/vendors/_swiper.scss
