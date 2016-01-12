@@ -3,7 +3,6 @@
 var autoprefixer = require('gulp-autoprefixer'),
     browserify = require('gulp-browserify'),
     browserSync = require('browser-sync').create(),
-    concat = require('gulp-concat'),
     del = require('del'),
     gulp = require('gulp'),
     inject = require('gulp-inject'),
@@ -142,7 +141,7 @@ gulp.task('default', ['dev']);
 ================================================= For Production ==============================================
 =============================================================================================================*/
 
-// 压缩app/dist/stylesheets/bundle.css并将结果保存为app/dist/stylesheets/bundle.min.css
+// 压缩app/dist/stylesheets/bundle.css并将结果保存为app/dist/stylesheets/bundle.min.css，供生产环境使用
 gulp.task('minify-css', function () {
     return gulp.src('app/dist/stylesheets/app.css')
         .pipe(minifycss())
@@ -152,7 +151,7 @@ gulp.task('minify-css', function () {
         .pipe(gulp.dest('app/dist/stylesheets'));
 });
 
-// 压缩app/dist/javascripts/bundle.js并将结果保存为app/dist/javascripts/bundle.min.js
+// 压缩app/dist/javascripts/bundle.js并将结果保存为app/dist/javascripts/bundle.min.js，供生产环境使用
 gulp.task('uglify-js', function () {
     return gulp.src('app/dist/javascripts/bundle.js')
         .pipe(uglify())
@@ -163,7 +162,7 @@ gulp.task('uglify-js', function () {
 });
 
 // 将经过压缩的app/dist/stylesheets/bundle.min.css和app/dist/javascript/bundle.min.js注入到app/source/index.html中，
-// 并将结果保存至 app/dist/index.html
+// 并将结果保存至 app/dist/index.html，供生产环境使用
 gulp.task('inject-min', function () {
     var target = gulp.src('app/source/index.html');
     var sources = gulp.src([
@@ -189,7 +188,7 @@ gulp.task('del-bundle', function (cb) {
     ], cb);
 });
 
-// 依次运行任务'minify-css'，'uglify-js'和'inject-min'
+// 按步骤运行任务'minify-css'，'uglify-js'，'inject-min'和'del-bundle'任务，让项目为部署到生产环境做好准备
 gulp.task('prod',  function (cb) {
     runSequence(['minify-css', 'uglify-js'], ['inject-min', 'del-bundle'], cb);
 });
