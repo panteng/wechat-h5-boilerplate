@@ -71,7 +71,7 @@ gulp.task('get-css', function () {
         .pipe(gulp.dest('app/source/sass/vendors'));
 });
 
-//  将sass（app/sass）编译为app/source/stylesheets/app.css
+//  将sass（app/sass）编译为app/dist/stylesheets/app.css
 gulp.task('compile-sass', function () {
     return gulp.src('app/source/sass/main.scss')
         .pipe(sass({
