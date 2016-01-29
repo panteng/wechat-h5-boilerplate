@@ -1,16 +1,24 @@
 'use strict';
 
-var autoprefixer = require('gulp-autoprefixer'),
-    browserify = require('gulp-browserify'),
-    browserSync = require('browser-sync').create(),
-    del = require('del'),
-    gulp = require('gulp'),
-    inject = require('gulp-inject'),
-    minifycss = require('gulp-minify-css'),
-    rename = require('gulp-rename'),
-    runSequence = require('run-sequence'),
-    sass = require('gulp-sass'),
-    uglify = require('gulp-uglify');
+var autoprefixer = require('gulp-autoprefixer');
+var browserify = require('gulp-browserify');
+var browserSync = require('browser-sync').create();
+var cache = require('gulp-cache');
+var concat = require('gulp-concat');
+var del = require('del');
+var gulp = require('gulp');
+var imagemin = require('gulp-imagemin');
+var inject = require('gulp-inject');
+var minifycss = require('gulp-minify-css');
+var notify = require('gulp-notify');
+var rename = require('gulp-rename');
+var runSequence = require('run-sequence');
+var sass = require('gulp-sass');
+var streamSeries = require('stream-series');
+var plumber = require('gulp-plumber');
+var uglify = require('gulp-uglify');
+
+var vendors = require('./config/vendors');
 
 
 
@@ -18,18 +26,87 @@ var autoprefixer = require('gulp-autoprefixer'),
 ============================================ For Development ==================================================
 =============================================================================================================*/
 
-// 将未经过压缩的app/dist/stylesheets/bundle.css和app/dist/javascript/bundle.js注入到app/source/index.html中，
-// 并将结果保存至app/dist/index.html
+
+// copy fonts from node_modules and app/src/fonts to app/dist/fonts
+gulp.task('publish-fonts', function () {
+    var fonts = vendors.fonts.concat([
+        'app/src/fonts/*'
+    ]);
+
+    return gulp.src(fonts)
+        .pipe(gulp.dest('app/dist/fonts'));
+});
+
+// optimize images under app/src/images and save the results to app/dist/images
+gulp.task('publish-images', function () {
+    return gulp.src('app/src/images/**/*')
+        .pipe(cache(imagemin({
+            optimizationLevel: 3,
+            progressive: true,
+            interlaced: true
+        })))
+        .pipe(gulp.dest('app/dist/images'));
+});
+
+// copy audios from app/src/audios to app/dist/audios
+gulp.task('publish-audios', function () {
+    return gulp.src('app/src/audios/*')
+        .pipe(gulp.dest('app/dist/audios'));
+});
+
+// compile sass, concat stylesheets in the right order,
+// and save as app/dist/stylesheets/bundle.css
+gulp.task('publish-css', function () {
+    var cssVendors = vendors.stylesheets;
+       
+    return streamSeries(
+        gulp.src(cssVendors),
+        gulp.src('app/src/sass/main.scss')
+            .pipe(plumber({
+                errorHandler: errorAlert
+            }))
+            .pipe(sass({
+                outputStyle: 'expanded'
+            }))
+            .pipe(autoprefixer())
+        )
+        .pipe(concat('bundle.css'))
+        .pipe(gulp.dest('app/dist/stylesheets'))
+        .pipe(browserSync.stream());
+});
+
+// bundle CommonJS modules under app/src/javascripts, concat javascripts in the right order,
+// and save as app/dist/javascripts/bundle.js
+gulp.task('publish-js', function () {
+    var jsVendors = vendors.javascripts;
+        
+    return streamSeries(
+        gulp.src(jsVendors),
+        gulp.src('app/src/javascripts/main.js')
+            .pipe(plumber({
+                errorHandler: errorAlert
+            }))
+            .pipe(browserify({
+                transform: ['partialify'],
+                debug: true
+            }))
+        )
+        .pipe(concat('bundle.js'))
+        .pipe(gulp.dest('app/dist/javascripts'));
+});
+
+// inject app/dist/stylesheets/bundle.css and app/dist/javascripts/bundle.js into app/src/index.html
+// and save as app/dist/index.html
 gulp.task('inject', function () {
-    var target = gulp.src('app/source/index.html');
-    var sources = gulp.src([
-        'app/dist/stylesheets/app.css',
+    var target = gulp.src('app/src/index.html');
+    var assets = gulp.src([
+        'app/dist/stylesheets/bundle.css',
         'app/dist/javascripts/bundle.js'
     ], {
         read: false
     });
     return target
-        .pipe(inject(sources, {
+        .pipe(inject(assets, {
             ignorePath: 'app/dist/',
             addRootSlash: false,
             removeTags: true
@@ -37,68 +114,7 @@ gulp.task('inject', function () {
         .pipe(gulp.dest('app/dist'));
 });
 
-// 将app/source/fonts文件下的所有文件拷贝到app/dist/fonts，供生产环境使用
-gulp.task('publish-fonts', function () {
-    return gulp.src('app/source/fonts/*')
-        .pipe(gulp.dest('app/dist/fonts'));
-});
-
-// 将app/source/images文件下的所有文件拷贝到app/dist/images，供生产环境使用
-gulp.task('publish-images', function () {
-    return gulp.src('app/source/images/*')
-        .pipe(gulp.dest('app/dist/images'));
-});
-
-// 将app/source/audios文件下的所有文件拷贝到app/dist/audios，供生产环境使用
-gulp.task('publish-audios', function () {
-    return gulp.src('app/source/audios/*')
-        .pipe(gulp.dest('app/dist/audios'));
-});
-
-// 将开发中需要用到的第三方样式表从node_modules中拷贝到app/source/sass/vendors中，并转换为.scss文件
-gulp.task('get-css', function () {
-    var stylesheets = [
-        'node_modules/normalize.css/normalize.css',
-        'node_modules/swiper/dist/css/swiper.css',
-        'node_modules/animate.css/animate.css'
-    ];
-
-    return gulp.src(stylesheets)
-        .pipe(rename({
-            prefix: '_',
-            extname: '.scss'
-        }))
-        .pipe(gulp.dest('app/source/sass/vendors'));
-});
-
-//  将sass（app/sass）编译为app/dist/stylesheets/app.css
-gulp.task('compile-sass', function () {
-    return gulp.src('app/source/sass/main.scss')
-        .pipe(sass({
-            outputStyle: 'expanded'
-        }).on('error', sass.logError))
-        .pipe(autoprefixer())
-        .pipe(rename('app.css'))
-        .pipe(gulp.dest('app/dist/stylesheets'))
-        .pipe(browserSync.stream());
-});
-
-// 使用browserify将所有CommonJS模块打包成一个文件app/dist/javascript/bundle.js
-gulp.task('browserify', function () {
-    return gulp.src('app/source/javascripts/main.js')
-        .pipe(browserify({
-            transform: ['partialify'],
-            debug: true
-        }))
-        .on('error', function (err) {
-            console.log(err.message);
-            this.end();
-        })
-        .pipe(rename('bundle.js'))
-        .pipe(gulp.dest('app/dist/javascripts'));
-});
-
-// 监控文件，当文件被创建、修改和删除时，自动执行相关的任务并刷新浏览器
+// watch files and run corresponding task(s) once files are added, removed or edited.
 gulp.task('watch', function () {
     browserSync.init({
         server: {
@@ -106,13 +122,12 @@ gulp.task('watch', function () {
         }
     });
 
-    // 请使用相对路径, 否则当文件被创建或删除时gulp.watch不会被触发
-    gulp.watch('app/source/index.html', ['inject']);
-    gulp.watch('app/source/sass/**/*', ['compile-sass']);
-    gulp.watch('app/source/javascripts/**/*', ['browserify']);
-    gulp.watch('app/source/fonts/**', ['publish-fonts']);
-    gulp.watch('app/source/images/**', ['publish-images']);
-    gulp.watch('app/source/audios/**', ['publish-audios']);
+    gulp.watch('app/src/index.html', ['inject']);
+    gulp.watch('app/src/sass/**/*.scss', ['publish-css']);
+    gulp.watch('app/src/javascripts/**/*', ['publish-js']);
+    gulp.watch('app/src/fonts/**/*', ['publish-fonts']);
+    gulp.watch('app/src/images/**/*', ['publish-images']);
+    gulp.watch('app/src/audios/**/*', ['publish-audios']);
 
     gulp.watch('app/dist/index.html').on('change', browserSync.reload);
     gulp.watch('app/dist/javascripts/*').on('change', browserSync.reload);
@@ -120,19 +135,24 @@ gulp.task('watch', function () {
     gulp.watch('app/dist/images/*').on('change', browserSync.reload);
 });
 
-// 删除app/dist下的所有文件
-gulp.task('clean-dist', function(cb) {
+// delete files under app/dist
+gulp.task('clean-files', function(cb) {
     return del([
         'app/dist/**/*'
     ], cb);
 });
 
-// 开发任务整合
-gulp.task('dev', function (cb) {
-    runSequence(['clean-dist', 'get-css'], ['publish-fonts', 'publish-images', 'publish-audios', 'compile-sass', 'browserify'], 'inject', 'watch', cb);
+// delete cache
+gulp.task('clean-cache', function (cb) {
+    return cache.clearAll(cb)
 });
 
-// 默认任务
+// development workflow task
+gulp.task('dev', function (cb) {
+    runSequence(['clean-files', 'clean-cache'], ['publish-fonts', 'publish-images', 'publish-audios', 'publish-css', 'publish-js'], 'inject', 'watch', cb);
+});
+
+// default task
 gulp.task('default', ['dev']);
 
 
@@ -141,9 +161,9 @@ gulp.task('default', ['dev']);
 ================================================= For Production ==============================================
 =============================================================================================================*/
 
-// 压缩app/dist/stylesheets/bundle.css并将结果保存为app/dist/stylesheets/bundle.min.css，供生产环境使用
+// minify app/dist/stylesheets/bundle.css and save as app/dist/stylesheets/bundle.min.css
 gulp.task('minify-css', function () {
-    return gulp.src('app/dist/stylesheets/app.css')
+    return gulp.src('app/dist/stylesheets/bundle.css')
         .pipe(minifycss())
         .pipe(rename({
             suffix: '.min'
@@ -151,7 +171,7 @@ gulp.task('minify-css', function () {
         .pipe(gulp.dest('app/dist/stylesheets'));
 });
 
-// 压缩app/dist/javascripts/bundle.js并将结果保存为app/dist/javascripts/bundle.min.js，供生产环境使用
+// uglify app/dist/javascripts/bundle.js and save as app/dist/javascripts/bundle.min.js
 gulp.task('uglify-js', function () {
     return gulp.src('app/dist/javascripts/bundle.js')
         .pipe(uglify())
@@ -161,18 +181,18 @@ gulp.task('uglify-js', function () {
         .pipe(gulp.dest('app/dist/javascripts'));
 });
 
-// 将经过压缩的app/dist/stylesheets/bundle.min.css和app/dist/javascript/bundle.min.js注入到app/source/index.html中，
-// 并将结果保存至 app/dist/index.html，供生产环境使用
+// inject app/dist/stylesheets/bundle.min.css and app/dist/javascripts/bundle.min.js into app/src/index.html
+// and save as app/dist/index.html
 gulp.task('inject-min', function () {
-    var target = gulp.src('app/source/index.html');
-    var sources = gulp.src([
-        'app/dist/stylesheets/app.min.css',
+    var target = gulp.src('app/src/index.html');
+    var assets = gulp.src([
+        'app/dist/stylesheets/bundle.min.css',
         'app/dist/javascripts/bundle.min.js'
     ], {
         read: false
     });
     return target
-        .pipe(inject(sources, {
+        .pipe(inject(assets, {
             ignorePath: 'app/dist/',
             addRootSlash: false,
             removeTags: true
@@ -180,15 +200,34 @@ gulp.task('inject-min', function () {
         .pipe(gulp.dest('app/dist'));
 });
 
-// 删除未经压缩的app/dist/stylesheets/bundle.css和app/dist/javascripts/bundle.js
+// delete app/dist/stylesheets/bundle.css and app/dist/javascripts/bundle.js
 gulp.task('del-bundle', function (cb) {
     return del([
-        'app/dist/stylesheedts/app.css',
+        'app/dist/stylesheedts/bundle.css',
         'app/dist/javascripts/bundle.js'
     ], cb);
 });
 
-// 按步骤运行任务'minify-css'，'uglify-js'，'inject-min'和'del-bundle'任务，让项目为部署到生产环境做好准备
+// run 'minify-css' and 'uglify-js' at the same time
+// inject the minified files to index.html
+// delete unminified files
 gulp.task('prod',  function (cb) {
     runSequence(['minify-css', 'uglify-js'], ['inject-min', 'del-bundle'], cb);
 });
+
+
+
+/* ===============================================
+ ================== Functions ====================
+ ================================================*/
+
+// handle errors
+function errorAlert(error){
+    notify.onError({
+        title: "Error in plugin '" + error.plugin + "'",
+        message: 'Check your terminal',
+        sound: 'Sosumi'
+    })(error); //Error Notification
+    console.log(error.toString());  // prints error to console
+    this.emit('end');   // end function
+};

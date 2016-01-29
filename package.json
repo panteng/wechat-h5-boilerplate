@@ -1,7 +1,7 @@
 {
   "name": "wechat-h5-boilerplate",
   "version": "1.0.0",
-  "description": "专门为腾讯微信优化的H5动效模板",
+  "description": "A fullpage scrolling website boilerplate for mobile devices.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/panteng/wechat-h5-boilerplate.git"
@@ -15,13 +15,18 @@
     "gulp-autoprefixer": "^3.1.0",
     "gulp-browserify": "^0.5.1",
     "gulp-cache": "^0.4.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-imagemin": "^2.4.0",
     "gulp-inject": "^3.0.0",
     "gulp-minify-css": "^1.2.2",
+    "gulp-notify": "^2.2.0",
+    "gulp-plumber": "^1.0.1",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.1.1",
     "gulp-uglify": "^1.5.1",
     "partialify": "^3.1.5",
-    "run-sequence": "^1.1.5"
+    "run-sequence": "^1.1.5",
+    "stream-series": "^0.1.1"
   },
   "dependencies": {
     "animate.css": "^3.4.0",

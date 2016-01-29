@@ -1,18 +1,14 @@
 window.onload = function () {
-    // 加载依赖
+    // load dependencies
     var $ = jQuery = require('jquery');
     var Swiper = require('../../../node_modules/swiper/dist/js/swiper.jquery.js');
     var animationControl = require('./animation-control.js');
-
-    // 获取背景音乐DOM
+    
     var bgMusic = $('audio').get(0);
-    // 获取背景音乐开关控制按钮
     var $btnMusic = $('.btn-music');
-
-    // 获取.btn-swipe
     var $btnSwipe = $('.btn-swipe');
 
-    // 背景音乐控制按钮
+    // background music control
     $('.btn-music').click(function () {
         if (bgMusic.paused) {
             bgMusic.play();
@@ -23,30 +19,30 @@ window.onload = function () {
         }
     });
 
-    // 初始化Swiper实例
+    // init Swiper
     new Swiper('.swiper-container', {
         direction: 'vertical',
         onInit: function (swiper) {
-            animationControl.initAnimationItems();  // 初始化动画元素
-            animationControl.execAnimation(swiper); // 执行第一个slide的动画
+            animationControl.initAnimationItems();  // get items ready for animations
+            animationControl.playAnimation(swiper); // play animations of the first slide
         },
-        onSlideChangeStart: function (swiper) {     // 当滑动到最后一个slide时，隐藏.btn-swipe
+        onSlideChangeStart: function (swiper) {     // on the last slide, hide .btn-swipe
             if (swiper.activeIndex === swiper.slides.length - 1) {
                 $btnSwipe.hide();
             } else {
                 $btnSwipe.show();
             }
         },
-        onSlideChangeEnd: function (swiper) {       // 执行当前slide的动画
-            animationControl.execAnimation(swiper);
+        onSlideChangeEnd: function (swiper) {       // play animations of the current slide
+            animationControl.playAnimation(swiper);
         },
-        onTouchStart: function (swiper, event) {    // 由于移动端浏览器不支持audio的自动播放，因此背景音乐的播放需要由用户点击屏幕后触发
+        onTouchStart: function (swiper, event) {    // mobile devices don't allow audios to play automatically, it has to be triggered by a user event(click / touch).
             if (!$btnMusic.hasClass('paused') && bgMusic.paused) {
                 bgMusic.play();
             }
         }
     });
 
-    // 页面完成加载后，隐藏加载动画
+    // hide loading animation since everything is ready
     $('.loading-overlay').slideUp();
 };
