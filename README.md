@@ -8,7 +8,7 @@
 
 使用手机访问下面的地址或扫描下方二维码
 
-[http://panteng.me/whb][2]
+[http://panteng.me/demos/whb][2]
 
 ![此处输入图片的描述][3]
 
