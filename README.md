@@ -57,7 +57,7 @@
 
 
   [1]: https://raw.githubusercontent.com/panteng/wechat-h5-boilerplate/master/demo.png
-  [2]: http://panteng.me/whb
+  [2]: http://panteng.me/demos/whb
   [3]: https://raw.githubusercontent.com/panteng/wechat-h5-boilerplate/master/QR-Code.png
   [4]: https://github.com/nolimits4web/swiper/
   [5]: https://github.com/daneden/animate.css
