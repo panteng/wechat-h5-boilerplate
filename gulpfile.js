@@ -227,7 +227,7 @@ function errorAlert(error){
         title: "Error in plugin '" + error.plugin + "'",
         message: 'Check your terminal',
         sound: 'Sosumi'
-    })(error); //Error Notification
-    console.log(error.toString());  // prints error to console
-    this.emit('end');   // end function
+    })(error);
+    console.log(error.toString());
+    this.emit('end');
 };
