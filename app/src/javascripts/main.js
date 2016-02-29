@@ -9,7 +9,7 @@ window.onload = function () {
     var $btnSwipe = $('.btn-swipe');
 
     // background music control
-    $('.btn-music').click(function () {
+    $btnMusic.click(function () {
         if (bgMusic.paused) {
             bgMusic.play();
             $(this).removeClass('paused');
@@ -21,7 +21,7 @@ window.onload = function () {
 
     // init Swiper
     new Swiper('.swiper-container', {
-        effect: 'coverflow',    // fade, coverflow or flip
+        effect: 'slide',    // fade, coverflow or flip
         speed: 400,
         direction: 'vertical',
         onInit: function (swiper) {
