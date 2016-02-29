@@ -203,7 +203,7 @@ gulp.task('inject-min', function () {
 // delete app/dist/stylesheets/bundle.css and app/dist/javascripts/bundle.js
 gulp.task('del-bundle', function (cb) {
     return del([
-        'app/dist/stylesheedts/bundle.css',
+        'app/dist/stylesheets/bundle.css',
         'app/dist/javascripts/bundle.js'
     ], cb);
 });
