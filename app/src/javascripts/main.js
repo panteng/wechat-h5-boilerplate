@@ -21,6 +21,8 @@ window.onload = function () {
 
     // init Swiper
     new Swiper('.swiper-container', {
+        effect: 'coverflow',    // fade, coverflow or flip
+        speed: 400,
         direction: 'vertical',
         onInit: function (swiper) {
             animationControl.initAnimationItems();  // get items ready for animations
