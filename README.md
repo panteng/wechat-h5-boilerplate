@@ -69,7 +69,7 @@ Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微�
 
     该任务将在app/dist文件夹中生成两个新文件bundle.min.css和bundle.min.js，并删除原有的bundle.css和bundle.js。
     
-2. 发布时，只需要将app/dist文件夹中的文件上传到服务器即可，其他文件如app/src/**/*，config/config.js等等都不是必需的。app/dist中的css和js文件时经过压缩的，图片也是经过优化的。
+2. 发布时，只需要将app/dist文件夹中的文件上传到服务器即可，其他文件都不需要。app/dist中的css和js文件是经过压缩的，图片也是经过优化的，无需再进行另外的优化操作。
 
 ## 开发指南
 
