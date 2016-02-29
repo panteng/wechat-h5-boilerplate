@@ -39,12 +39,18 @@ gulp.task('publish-fonts', function () {
 
 // optimize images under app/src/images and save the results to app/dist/images
 gulp.task('publish-images', function () {
-    return gulp.src('app/src/images/**/*')
-        .pipe(cache(imagemin({
-            optimizationLevel: 3,
-            progressive: true,
-            interlaced: true
-        })))
+    var imagesWithoutSVG = ['app/src/images/**/*', '!app/src/images/**/*.svg'];
+    var SVGs = 'app/src/images/**/*.svg';
+
+    return streamSeries(
+        gulp.src(imagesWithoutSVG)
+            .pipe(imagemin({
+                optimizationLevel: 3,
+                progressive: true,
+                interlaced: true
+            })),
+        gulp.src(SVGs)
+    )
         .pipe(gulp.dest('app/dist/images'));
 });
 
@@ -58,7 +64,7 @@ gulp.task('publish-audios', function () {
 // and save as app/dist/stylesheets/bundle.css
 gulp.task('publish-css', function () {
     var cssVendors = vendors.stylesheets;
-       
+
     return streamSeries(
         gulp.src(cssVendors),
         gulp.src('app/src/sass/main.scss')
@@ -69,7 +75,7 @@ gulp.task('publish-css', function () {
                 outputStyle: 'expanded'
             }))
             .pipe(autoprefixer())
-        )
+    )
         .pipe(concat('bundle.css'))
         .pipe(gulp.dest('app/dist/stylesheets'))
         .pipe(browserSync.stream());
@@ -79,7 +85,7 @@ gulp.task('publish-css', function () {
 // and save as app/dist/javascripts/bundle.js
 gulp.task('publish-js', function () {
     var jsVendors = vendors.javascripts;
-        
+
     return streamSeries(
         gulp.src(jsVendors),
         gulp.src('app/src/javascripts/main.js')
@@ -230,4 +236,4 @@ function errorAlert(error){
     })(error);
     console.log(error.toString());
     this.emit('end');
-};
+}
