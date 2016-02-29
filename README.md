@@ -2,18 +2,19 @@
 
 「让制作H5像制作PPT一样简单！」
 
-Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微信优化，适合快速构建H5宣传页。
+Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微信优化，适合快速构建全屏滚动型H5宣传页。
 
 ![效果图][1]
 
 ## 目录
 
- - [实时预览](#live-preview)
- - [项目结构](#project-structure)
- - [开发指南](#development)
- - [发布流程](#production)
- - [依赖列表](#dependencies)
- - [待办事项](#to-dos)
+ - [实时预览](#实时预览)
+ - [项目结构](#项目结构)
+ - [开发流程](#开发流程)
+ - [发布流程](#发布流程)
+ - [开发指南](#开发指南)
+ - [依赖列表](#依赖列表)
+ - [待办事项](#待办事项)
 
 ## 实时预览
 
@@ -25,7 +26,7 @@ Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微�
 
 ## 项目结构
 
-## 开发指南
+## 开发流程
 
 1. 将本项目clone到本地
 
@@ -69,6 +70,8 @@ Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微�
     该任务将在app/dist文件夹中生成两个新文件bundle.min.css和bundle.min.js，并删除原有的bundle.css和bundle.js。
     
 2. 发布时，只需要将app/dist文件夹中的文件上传到服务器即可，其他文件如app/src/**/*，config/config.js等等都不是必需的。app/dist中的css和js文件时经过压缩的，图片也是经过优化的。
+
+## 开发指南
 
 ## 依赖列表
 1. [Swiper][8] --> 用于实现页面的整屏滚动
