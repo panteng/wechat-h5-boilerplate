@@ -56,14 +56,14 @@ Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微�
 
 ## 开发流程
 
-1. 将本项目clone到本地
+1. **将本项目clone到本地**
 
     在控制台中运行：
 
         git clone --depth=1 https://github.com/panteng/wechat-h5-boilerplate.git <your-project-name>
         cd <your-project-name>
 
-2. 安装第三方包
+2. **安装第三方包**
 
     WHB使用NPM管理第三方包    
 
@@ -79,7 +79,7 @@ Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微�
     
     注意4：Windows用户，如果你已经正确安装了node-gyp，但在运行`cnpm install -d`时依然报错，且报错信息为“EPERM, operation not permitted”的话，请尝试`cnpm install -d --force`。
     
-3. 开始开发
+3. **开始开发**
 
     在控制台运行：
 
@@ -101,7 +101,7 @@ Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微�
 
 ## 开发指南
 
-1. 加载动画
+1. **加载动画**
 
     H5页面通常包含大量图片和背景音乐，因此一个好看的加载动画是必要的。
     
@@ -115,13 +115,13 @@ Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微�
     
     [CSS Loaders][14]
 
-2. 页面切换效果
+2. **页面切换效果**
     
     页面切换目前只支持Swiper自带的四种slide，fade, flip和coverflow（cube不支持，因为不符合此场景）。详见[Swiper文档][15]中关于effect的部分。
     
     目前WHB尚无法对不同页面指定不同的切换方式，我将在后续版本考虑加入此功能以及更多更酷的切换方式。
 
-3. 页面内元素动画
+3. **页面内元素动画**
 
     在WHB中设置元素动画十分简单。
     
@@ -135,27 +135,27 @@ Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微�
     
     WHB的动画由Animate.css提供，支持的动画名称可以在[Animate.css官网][16]上查看。
     
-4. 字体图标
+4. **字体图标**
 
     WHB自带的字体图标文件中只有两个图标，分别是右上角的音乐符号，和屏幕中间下方的向上提示符号。如果你需要更多图标，建议使用[Icomoon.io][17]进行定制，只选择你需要的图标，打包成字体文件即可。
     
     这里不建议使用Font-awesome等通用字体包的原因是，font-awesome中的图标很多，大部分是用不到的，较大的字体文件会拖慢网页在用户手机上的加载速度。
 
-5. 图像优化
+5. **图像优化**
 
     WHB中自带对app/src/images下的图片进行有损压缩的功能，但我仍然建议在你将自己的图片扔进app/src/images文件夹前，对图片进行必要的手动优化，例如将图片调整为合适的尺寸，将部分小图片做成精灵图等。
     
     这个网站也是一个很好用的在线图片压缩工具：[TinyPNG][18]。
 
-6. 背景音乐
+6. **背景音乐**
 
     建议背景音乐的文件格式为mp3，且大小尽量不要超过1MB。建议使用[Adobe Audition][19]等专业音频编辑软件对背景音乐进行截取和压缩。
 
-7. Gulp任务
+7. **Gulp任务**
 
     在开发过程中，如果你发现明明已经修改或替换了app/src文件下的图片、音频、字体等文件，而浏览器中的页面却没有做出相应的改变的话，请尝试在控制台中重新运行`gulp dev`任务。
 
-8. config/vendors.js说明
+8. **config/vendors.js说明**
 
     vendors.js文件用来登记第三方CSS、JS和Fonts信息，凡在vendors.js中登记过的第三方文件，均会以某种形式被添加到项目中。举个例子：
     假如现在vendors.js是这样的：
