@@ -4,6 +4,10 @@
 
 Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微信优化，适合快速构建全屏滚动型H5宣传页。
 
+例如让一段文字动起来只需要一行代码：
+
+        <p class="animated" data-ani-name="slideInRight" data-ani-duration="1s" data-ani-delay="0.3s">I'm a coder!</p>
+
 ![效果图][1]
 
 ## 目录
@@ -184,6 +188,7 @@ Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微�
     vendors.js中登记的文件会被优先加入bundle.css和bundle.js中，因此你无需担心自己写的SCSS中的样式被覆盖或者在main.js中发现某个第三方库的对象未定义的情况。另外vendors.js中的文件本身会按照登记顺序依次加入bundle.css和bundle.js。
     
     注意1：文件路径是相对于gulpfile.js的，不是相对于vendors.js的。
+    
     注意2：虽然可以通过这种方式引入第三方JS文件，但还是推荐使用CommonJS的require写法来引入。`var jQuery = $ = require('jquery');`
 
 ## 待办事项
