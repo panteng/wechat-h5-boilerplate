@@ -6,7 +6,7 @@ Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微�
 
 例如让一段文字动起来只需要一行代码：
 
-        <p class="animated" data-ani-name="slideInRight" data-ani-duration="1s" data-ani-delay="0.3s">I'm a coder!</p>
+    <p class="animated" data-ani-name="slideInRight" data-ani-duration="1s" data-ani-delay="0.3s">I'm a coder!</p>
 
 ![效果图][1]
 
