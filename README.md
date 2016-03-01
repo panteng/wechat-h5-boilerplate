@@ -104,10 +104,15 @@ Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微�
 1. 加载动画
 
     H5页面通常包含大量图片和背景音乐，因此一个好看的加载动画是必要的。
+    
     你可以自己制作一些CSS3动画，将动画相关的HTML代码放在app/src/index.html中的`<div class="loading-overlay"></div>`中，并将相关样式整合进app/src/sass中即可。
+    
     图省事的话，这个网站可以帮你生成现成的加载动画：[loading.io][12]（打不开请翻墙），建议生成svg格式的动画图像文件，将文件改为为loading.svg替换app/src/images/下的同名文件即可。
+    
     还有一些资源也许可以帮到你：
+    
     [Spinkit][13]
+    
     [CSS Loaders][14]
 
 2. 页面切换效果
@@ -119,6 +124,7 @@ Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微�
 3. 页面内元素动画
 
     在WHB中设置元素动画十分简单。
+    
     例如在第一页中有一段文字需要以动画显示，代码如下：
         
         <div class="swiper-slide slide-1">
@@ -126,16 +132,19 @@ Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微�
         </div>
     
     只需要在这段文字上添加类名`animated`，并指定`data-ani-name`（动画名称）,`data-ani-duration`（动画执行时间），`data-ani-delay`（动画延迟时间）三个属性即可。
+    
     WHB的动画由Animate.css提供，支持的动画名称可以在[Animate.css官网][16]上查看。
     
 4. 字体图标
 
     WHB自带的字体图标文件中只有两个图标，分别是右上角的音乐符号，和屏幕中间下方的向上提示符号。如果你需要更多图标，建议使用[Icomoon.io][17]进行定制，只选择你需要的图标，打包成字体文件即可。
+    
     这里不建议使用Font-awesome等通用字体包的原因是，font-awesome中的图标很多，大部分是用不到的，较大的字体文件会拖慢网页在用户手机上的加载速度。
 
 5. 图像优化
 
     WHB中自带对app/src/images下的图片进行有损压缩的功能，但我仍然建议在你将自己的图片扔进app/src/images文件夹前，对图片进行必要的手动优化，例如将图片调整为合适的尺寸，将部分小图片做成精灵图等。
+    
     这个网站也是一个很好用的在线图片压缩工具：[TinyPNG][18]。
 
 6. 背景音乐
