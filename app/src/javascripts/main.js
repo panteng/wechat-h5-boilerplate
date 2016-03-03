@@ -21,21 +21,35 @@ $(document).ready(function () {
 
     // init Swiper
     new Swiper('.swiper-container', {
-        effect: 'slide',    // fade, coverflow or flip
+        effect: 'coverflow',    // slide, fade, coverflow or flip
         speed: 400,
         direction: 'vertical',
+        fade: {
+            crossFade: false
+        },
+        coverflow: {
+            rotate: 100,
+            stretch: 0,
+            depth: 300,
+            modifier: 1,
+            slideShadows: false     // do disable shadows for better performance
+        },
+        flip: {
+            limitRotation: true,
+            slideShadows: false     // do disable shadows for better performance
+        },
         onInit: function (swiper) {
             animationControl.initAnimationItems();  // get items ready for animations
             animationControl.playAnimation(swiper); // play animations of the first slide
         },
-        onSlideChangeStart: function (swiper) {     // on the last slide, hide .btn-swipe
+        onTransitionStart: function (swiper) {     // on the last slide, hide .btn-swipe
             if (swiper.activeIndex === swiper.slides.length - 1) {
                 $btnSwipe.hide();
             } else {
                 $btnSwipe.show();
             }
         },
-        onSlideChangeEnd: function (swiper) {       // play animations of the current slide
+        onTransitionEnd: function (swiper) {       // play animations of the current slide
             animationControl.playAnimation(swiper);
         },
         onTouchStart: function (swiper, event) {    // mobile devices don't allow audios to play automatically, it has to be triggered by a user event(click / touch).
