@@ -1,9 +1,9 @@
-window.onload = function () {
-    // load dependencies
-    var $ = jQuery = require('jquery');
-    var Swiper = require('../../../node_modules/swiper/dist/js/swiper.jquery.js');
-    var animationControl = require('./animation-control.js');
-    
+// load dependencies
+var $ = jQuery = require('jquery');
+var Swiper = require('swiper/dist/js/swiper.jquery.js');
+var animationControl = require('./animation-control.js');
+
+$(document).ready(function () {
     var bgMusic = $('audio').get(0);
     var $btnMusic = $('.btn-music');
     var $btnSwipe = $('.btn-swipe');
@@ -47,4 +47,4 @@ window.onload = function () {
 
     // hide loading animation since everything is ready
     $('.loading-overlay').slideUp();
-};
+});
