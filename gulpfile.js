@@ -67,7 +67,7 @@ gulp.task('publish-css', function () {
 
     return streamSeries(
         gulp.src(cssVendors),
-        gulp.src('app/src/sass/main.scss')
+        gulp.src('app/src/scss/main.scss')
             .pipe(plumber({
                 errorHandler: errorAlert
             }))
@@ -129,7 +129,7 @@ gulp.task('watch', function () {
     });
 
     gulp.watch('app/src/index.html', ['inject']);
-    gulp.watch('app/src/sass/**/*.scss', ['publish-css']);
+    gulp.watch('app/src/scss/**/*.scss', ['publish-css']);
     gulp.watch('app/src/javascripts/**/*', ['publish-js']);
     gulp.watch('app/src/fonts/**/*', ['publish-fonts']);
     gulp.watch('app/src/images/**/*', ['publish-images']);
