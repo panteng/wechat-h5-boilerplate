@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-.btn-swipe {
+.up-arrow {
     width: 2rem;
     height: 2rem;
     position: fixed;
@@ -11,7 +11,7 @@
     background: none;
     border: none;
     padding: 0;
-    animation: btnSwipeAni 2s infinite linear;
+    animation: upArrowAni 2s infinite linear;
     i {
         width: 2rem;
         height: 2rem;
@@ -22,7 +22,7 @@
     }
 }
 
-@keyframes btnSwipeAni {
+@keyframes upArrowAni {
     0% {
         opacity: 0;
         transform: translate3d(-50%, 30%, 0);
