@@ -49,7 +49,7 @@ Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微�
                 /fonts          --> 存放字体文件
                 /images         --> 存放图片文件
                 /javascripts    --> JS源文件，经Browserify打包后生成app/dist/javascripts/bundle.js
-                /sass           --> SCSS文件，经过编译后生成app/dist/stylesheets/bundle.css
+                /scss           --> SCSS文件，经过编译后生成app/dist/stylesheets/bundle.css
                 index.html      --> 页面HTML，经过Gulp-inject处理后生成app/dist/index.html
         /config
             vendors.js          --> 第三方CSS、JS、Fonts列表，详见vendors.js说明
