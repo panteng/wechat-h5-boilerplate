@@ -4,11 +4,12 @@
 
 Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微信优化，适合快速构建全屏滚动型H5宣传页。
 
+![效果图][1]
+
 例如让一段文字动起来只需要一行代码：
 
     <p class="animated" data-ani-name="slideInRight" data-ani-duration="1s" data-ani-delay="0.3s">I'm a coder!</p>
 
-![效果图][1]
 
 ## 目录
 
@@ -243,7 +244,7 @@ Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微�
 [MIT][22]
 
 
-  [1]: https://raw.githubusercontent.com/panteng/wechat-h5-boilerplate/master/demo.png
+  [1]: https://raw.githubusercontent.com/panteng/wechat-h5-boilerplate/master/demo.jpg
   [2]: http://panteng.me/demos/whb
   [3]: https://raw.githubusercontent.com/panteng/wechat-h5-boilerplate/master/QR-Code.png
   [4]: https://github.com/nolimits4web/swiper/
