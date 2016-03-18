@@ -1,6 +1,6 @@
 # wechat-h5-boilerplate
 
-「让制作H5像制作PPT一样简单！」
+> 「让制作H5像制作PPT一样简单！」
 
 Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微信优化，适合快速构建全屏滚动型H5宣传页。
 
@@ -42,7 +42,7 @@ Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微�
                 /fonts          --> 从app/src/fonts和在config/vendors.js中指定的第三方字体复制而来
                 /images         --> 由app/src/images下的图片经Imagemin压缩优化生成
                 /javascripts    --> 由app/src/javascripts下的文件经Browserify打包生成
-                /stylesheets    --> 由app/src/sass下的文件编译生成
+                /stylesheets    --> 由app/src/scss下的文件编译生成
                 index.html      --> 由app/src/index.html经Gulp-inject插入bundle.(min.).css和bundle.(min.).js后生成
             /src                --> 项目的源码，所有文件都可编辑
                 /audios         --> 存放音频、视频文件
@@ -79,7 +79,7 @@ Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微�
 
     注意2：WHB所需的一些第三方包依赖于[node-gyp][10]，在安装这些包之前，请先确认你的机器已经正确安装node-gyp。请参考[node-gyp官方文档][11]来进行安装。Windows用户可能会遇到一些麻烦，因为在Windows上安装node-gyp是一件很痛苦的事。
     
-    注意3：Windows用户，请不要将本项目放在路径太深的目录中。因为Windows只支持长度为255个字符以内的路径，所以如果你将本项目放在路径很深的目录中，有很大可能会造成node-gyp编译失败。
+    注意3：Windows用户，请不要将WHB放在路径太深的目录中。因为Windows只支持长度为255个字符以内的路径，所以如果你将本项目放在路径很深的目录中，有很大可能会造成node-gyp编译失败。
     
     注意4：Windows用户，如果你已经正确安装了node-gyp，但在运行`cnpm install -d`时依然报错，且报错信息为“EPERM, operation not permitted”的话，请尝试`cnpm install -d --force`。
     
@@ -89,11 +89,11 @@ Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微�
 
         gulp dev
         
-    稍等片刻，浏览器窗口会自动打开并指向地址`localhost:3000`，当你修改app/src下的任意文件时，浏览器均会自动刷新。
+    稍等片刻，浏览器窗口会自动打开并指向地址`localhost:3000`，当你修改app/src下的任意文件时，浏览器页面会自动刷新。
 
 ## 发布流程
 
-1. 执行prod任务
+1. 执行gulp prod任务
 
    在控制台中运行：
 
@@ -101,7 +101,7 @@ Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微�
 
     该任务将在app/dist文件夹中生成两个新文件bundle.min.css和bundle.min.js，并删除原有的bundle.css和bundle.js。
     
-2. 发布时，只需要将app/dist文件夹中的文件上传到服务器即可，其他文件都不是必需的。app/dist中的css和js文件是经过压缩的，图片也是经过优化的。
+2. 发布时，只需要将app/dist文件夹中的文件上传到服务器即可，其他文件都不是必需的。app/dist中的CSS、JS和图片文件都是经过压缩优化的。
 
 ## 开发指南
 
@@ -109,25 +109,24 @@ Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微�
 
     H5页面通常包含大量图片和背景音乐，因此一个好看的加载动画是必要的。
     
-    你可以自己制作一些CSS3动画，将动画相关的HTML代码放在app/src/index.html中的`<div class="loading-overlay"></div>`中，并将相关样式整合进app/src/sass中即可。
+    你可以自己写一些CSS3动画，将动画相关的HTML代码插入在app/src/index.html中的`<div class="loading-overlay"></div>`中，并将相关的CSS3 Animation代码整合进app/src/scss中。
     
-    图省事的话，这个网站可以帮你生成现成的加载动画：[loading.io][12]（打不开请翻墙），建议生成svg格式的动画图像文件，将文件改为为loading.svg替换app/src/images/下的同名文件即可。
+    想省事的话，[loading.io][12]这个网站可以帮你生成现成的加载动画（打不开请翻墙）。建议生成SVG格式的动画图像文件，将文件改为为loading.svg并替换app/src/images/下的同名文件即可。
     
-    还有一些资源也许可以帮到你：
+    此外分享一些优秀的CSS3加载动画库：
     
-    [Spinkit][13]
-    
-    [CSS Loaders][14]
+    - [Spinkit][13]
+    - [CSS Loaders][14]
 
 2. **页面切换效果**
     
-    页面切换目前只支持Swiper自带的四种slide，fade, flip和coverflow（cube不支持，因为不符合此场景）。详见[Swiper文档][15]中关于effect的部分。
+    页面切换暂时只支持Swiper自带的四种：slide，fade, flip和coverflow（cube不支持，因为不符合此场景）。详见[Swiper文档][15]中关于effect的部分。
     
-    目前WHB尚无法对不同页面指定不同的切换方式，我将在后续版本考虑加入此功能以及更多更酷的切换方式。
+    WHB尚无法对不同页面指定不同的切换方式，我将在后续版本中考虑加入此功能以及更多更酷的切换方式。
 
-3. **页面内元素动画**
+3. **页面内元素（图片、文字）动画**
 
-    在WHB中设置元素动画十分简单。
+    在WHB中为图片和文字添加动画非常简单。
     
     例如在第一页中有一段文字需要以动画显示，代码如下：
         
@@ -141,25 +140,23 @@ Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微�
     
 4. **字体图标**
 
-    WHB自带的字体图标文件中只有两个图标，分别是右上角的音乐符号，和屏幕中间下方的向上提示符号。如果你需要更多图标，建议使用[Icomoon.io][17]进行定制，只选择你需要的图标，打包成字体文件即可。
+    WHB自带的字体图标文件中只有两个图标，分别是右上角的音乐符号，和屏幕下方的上划提示符号。如果你需要更多图标，建议使用[Icomoon.io][17]进行定制，选择你需要的图标（也可以自己设计并上传），打包成字体文件即可。
     
-    这里不建议使用Font-awesome等通用字体包的原因是，font-awesome中的图标很多，大部分是用不到的，较大的字体文件会拖慢网页在用户手机上的加载速度。
+    这里不建议使用Font-Awesome等通用字体包的原因是，Font-Awesome中的图标非常多，所以字体文件会比较大，而其中大部分图标是用不到的。较大的字体文件会拖慢网页在用户设备上的加载速度。
 
 5. **图像优化**
 
-    WHB中自带对app/src/images下的图片进行有损压缩的功能，但我仍然建议在你将自己的图片扔进app/src/images文件夹前，对图片进行必要的手动优化，例如将图片调整为合适的尺寸，将部分小图片做成精灵图等。
+    WHB中自带对app/src/images下的图片进行有损压缩的功能，但我仍然建议在你将图片扔进app/src/images文件夹前，对图片进行必要的手动优化，例如将图片调整为合适的尺寸，将部分小图片整合成精灵图等。
     
-    这个网站也是一个很好用的在线图片压缩工具：[TinyPNG][18]。
-
+    分享一些好用的图片优化处理网站：
+    - 图片压缩：[TinyPNG][18]
+    - 精灵图生成器（包括生成图片和CSS代码）：[CSS Sprite Generator][19]
+    - 精灵图CSS代码生成器（自动识别精灵图中的元素并生成CSS代码）：[Sprite Cow][20]
 6. **背景音乐**
 
-    建议背景音乐的文件格式为mp3，且大小尽量不要超过1MB。建议使用[Adobe Audition][19]等专业音频编辑软件对背景音乐进行截取和压缩。
+    建议背景音乐的文件格式为mp3，且大小尽量不要超过1MB。可使用[Adobe Audition][21]等专业音频编辑软件对背景音乐进行截取和压缩。
 
-7. **Gulp任务**
-
-    在开发过程中，如果你发现明明已经修改或替换了app/src文件下的图片、音频、字体等文件，而浏览器中的页面却没有做出相应的改变的话，请尝试在控制台中重新运行`gulp dev`任务。
-
-8. **移动端调试**
+7. **移动端调试**
 
     首先，运行`gulp dev`任务，在控制台的输出信息中找到下面这段：
     
@@ -174,9 +171,23 @@ Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微�
     
     然后，确保你的移动设备（手机、平板等）和电脑处于同一局域网内（最简单的方式就是让电脑、手机和平板连接同一个WIFI；或者电脑用网线连接路由器，手机和平板连接同是这个路由器发出的WIFI）。
     
-    接着，在你的移动设备上打开浏览器，访问上面第三行中External对应的URL（注意你的URL可能跟我上面写的不一样，以你自己的控制台中显示的External URL为准）。
+    最后，在你的移动设备上打开浏览器，访问上面第三行中External对应的URL（注意你的URL可能跟我上面写的不一样，以你自己的控制台中显示的External URL为准）。
     
-    最后，大功告成。现在只要你修改app/src下的文件，所有访问这个URL的移动设备和电脑都会自动刷新浏览器页面。是不是很神奇？
+    现在只要你修改app/src下的文件，所有访问这个URL的移动设备和电脑都会自动刷新浏览器页面。你在其中一个设备上进行的操作也会实时同步到其他设备（比如用手指向上划动页面）。
+
+8. **响应式设计**
+
+    建议使用rem替代px来设置元素的尺寸、边距和字体大小。
+    
+    在WHB中，1rem对应的px数值会随着设备屏幕尺寸的不同而变化。
+    
+    在屏幕宽度小于400px的设备上，1rem = 16px；
+    
+    在屏幕宽度大于400px且小于600px的设备上，1rem = 22px；
+    
+    在屏幕宽度大于600px的设备上，1rem = 32px；
+    
+    参见app/src/scss/base/_base.scss中关于Media Query的代码。
 
 9. **config/vendors.js说明**
 
@@ -191,7 +202,8 @@ Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微�
                 'node_modules/font-awesome/css/font-awesome.css'
             ],
             javascripts: [
-                'node_modules/jquery/dist/jquery.js'
+                'node_modules/jquery/dist/jquery.js'，
+                'node_modules/a-jquery-plugin/a-jquery-plugin.js'
             ],
             fonts: [
                 'node_modules/font-awesome/fonts/fontAwesome-webfont.eot',
@@ -202,13 +214,24 @@ Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微�
             ]
         };
 
-    vendors.js的stylesheets中所有的css文件均会被加入项目最终生成的bundle.css中，vendors.js的javascripts中所有的js文件均会被加入项目最终生成的bundle.js中，vendors.js的fonts中所有的文件均会被复制到app/dist/fonts文件夹中。
+    vendors.js的stylesheets中所有的css文件均会被加入项目最终生成的bundle.css中；
     
-    vendors.js中登记的文件会被优先加入bundle.css和bundle.js中，因此你无需担心自己写的SCSS中的样式被覆盖或者在main.js中发现某个第三方库的对象未定义的情况。另外vendors.js中的文件本身会按照登记顺序依次加入bundle.css和bundle.js。
+    vendors.js的javascripts中所有的js文件均会被加入项目最终生成的bundle.js中；
+    
+    vendors.js的fonts中所有的文件均会被复制到app/dist/fonts文件夹中。
+    
+    记住vendors.js中登记的文件会被优先加入bundle.css和bundle.js中，因此你无需担心自己写的SCSS中的样式被覆盖或者在main.js中发现某个第三方库的对象未定义的情况。而在vendors.js中登记的文件会按照登记顺序依次加入bundle.css和bundle.js，因此你要确保登记顺序正确，比如jquery.js一定要在a-jquery-plugin.js（假设这个是一个jQuery插件）前面登记，因为a-jquery-plugin.js是依赖于jquery.js的。
     
     注意1：文件路径是相对于gulpfile.js的，不是相对于vendors.js的。
     
-    注意2：虽然可以通过这种方式引入第三方JS文件，但还是推荐使用CommonJS的require写法来引入。`var jQuery = $ = require('jquery');`
+    注意2：vendors.js主要还是用来向项目中引入第三方CSS和Font文件。虽然也可以通过这种方式引入第三方JS文件，但还是推荐使用CommonJS的require写法来引入。例如在app/src/javascripts/main.js中用这种方式引入jQuery：
+    
+        var jQuery = $ = require('jquery');
+
+
+10. **Gulp任务**
+
+    在开发过程中，如果你发现明明已经修改或替换了app/src文件下的图片、音频、字体等文件，但浏览器中的页面却没有做出相应改变的话，请尝试在控制台中重新运行`gulp dev`任务。
 
 ## 待办事项
 1. 完善开发文档
@@ -217,7 +240,7 @@ Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微�
 4. 增加更多Slide切换效果
 
 ## Lisence
-[MIT][20]
+[MIT][22]
 
 
   [1]: https://raw.githubusercontent.com/panteng/wechat-h5-boilerplate/master/demo.png
@@ -238,5 +261,7 @@ Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微�
   [16]: https://daneden.github.io/animate.css/
   [17]: https://icomoon.io/#icon-font
   [18]: https://tinypng.com/
-  [19]: http://www.adobe.com/products/audition.html
-  [20]: http://opensource.org/licenses/mit-license.html
+  [19]: http://spritegen.website-performance.org/
+  [20]: http://www.spritecow.com/
+  [21]: http://www.adobe.com/products/audition.html
+  [22]: http://opensource.org/licenses/mit-license.html
