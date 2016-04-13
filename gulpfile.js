@@ -3,7 +3,7 @@
 var autoprefixer = require('gulp-autoprefixer');
 var browserify = require('gulp-browserify');
 var browserSync = require('browser-sync').create();
-var cache = require('gulp-cache');
+// var cache = require('gulp-cache');
 var concat = require('gulp-concat');
 var del = require('del');
 var gulp = require('gulp');
@@ -149,9 +149,9 @@ gulp.task('clean-files', function(cb) {
 });
 
 // delete cache
-gulp.task('clean-cache', function (cb) {
-    return cache.clearAll(cb)
-});
+// gulp.task('clean-cache', function (cb) {
+//     return cache.clearAll(cb)
+// });
 
 // development workflow task
 gulp.task('dev', function (cb) {
