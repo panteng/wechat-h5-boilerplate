@@ -155,7 +155,7 @@ gulp.task('clean-files', function(cb) {
 
 // development workflow task
 gulp.task('dev', function (cb) {
-    runSequence(['clean-files', 'clean-cache'], ['publish-fonts', 'publish-images', 'publish-audios', 'publish-css', 'publish-js'], 'inject', 'watch', cb);
+    runSequence(['clean-files'], ['publish-fonts', 'publish-images', 'publish-audios', 'publish-css', 'publish-js'], 'inject', 'watch', cb);
 });
 
 // default task
