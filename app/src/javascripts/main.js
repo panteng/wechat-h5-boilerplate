@@ -1,7 +1,10 @@
+'use strict';
+
 // load dependencies
-var $ = jQuery = require('jquery');
+var $ = window.$ = window.jQuery = require('jquery');
 var Swiper = require('swiper/dist/js/swiper.jquery.js');
 var animationControl = require('./animation-control.js');
+
 
 $(document).ready(function () {
     var bgMusic = $('audio').get(0);
