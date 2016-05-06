@@ -206,7 +206,7 @@ Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微�
             ],
             javascripts: [
                 'node_modules/jquery/dist/jquery.js'，
-                'node_modules/swiper/dist/js/swiper.js'
+                'node_modules/swiper/dist/js/swiper.jquery.js'
             ],
             fonts: [
                 'node_modules/font-awesome/fonts/*'
@@ -219,7 +219,7 @@ Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微�
     
     vendors.js的fonts中所有的文件均会被复制到app/dist/fonts文件夹中。
     
-    记住vendors.js中登记的文件会被优先加入bundle.css和bundle.js中，因此你无需担心自己写的SCSS中的样式被覆盖或者在main.js中发现某个第三方库的对象未定义的情况。而在vendors.js中登记的文件会按照登记顺序依次加入bundle.css和bundle.js，因此你要确保登记顺序正确，比如jquery.js一定要在a-jquery-plugin.js（假设这个是一个jQuery插件）前面登记，因为a-jquery-plugin.js是依赖于jquery.js的。
+    记住vendors.js中登记的文件会被优先加入bundle.css和bundle.js中，因此你无需担心自己写的SCSS中的样式被覆盖或者在main.js中发现某个第三方库的对象未定义的情况。而在vendors.js中登记的文件会按照登记顺序依次加入bundle.css和bundle.js，因此你要确保登记顺序正确，比如jquery.js一定要在swiper.jquery.js前面登记，因为swiper.jquery.js是依赖于jquery.js的。
     
     注意1：文件路径是相对于gulpfile.js的，不是相对于vendors.js的。
     
