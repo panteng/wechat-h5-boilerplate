@@ -67,6 +67,8 @@ Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微�
 
         git clone --depth=1 https://github.com/panteng/wechat-h5-boilerplate.git <your-project-name>
         cd <your-project-name>
+        
+    或者你也可以直接在[Release](https://github.com/panteng/wechat-h5-boilerplate/releases)页面下载WHB的源码压缩包。
 
 2. **安装第三方包**
 
@@ -76,15 +78,13 @@ Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微�
 
         npm install
 
-    注意1：由于大陆网络环境恶劣，下载NPM上的包速度很慢，建议使用国内NPM镜像[CNPM][8]。CNPM的安装方法请参考[官网使用说明][9]。安装完成后，在控制台中运行`cnpm install -d`（加入 -d  是为了显示第三方包安装过程中的详细信息，我个人经常用这种方法来判断安装过程是否因为网络或其他问题卡住了）。
-    
-    > 2016/3/25更新：CNPM v4.2.0在Windows系统上有BUG，Windows用户请勿使用该版本。在CNPM官方修复之前，请使用CNPM v3.4.1。
+    注意1：由于大陆网络环境恶劣，下载NPM上的包速度很慢，建议使用国内NPM镜像[CNPM][8]。CNPM的安装方法请参考[官网使用说明][9]。CNPM v4.2.0在Windows系统上有[BUG]()，Windows用户请勿使用该版本。也不建议使用CNPM v3.4.1，因为其内置的NPM版本过旧。推荐`npm install --registry=https://registry.npm.taobao.org -d`这种直接使用镜像仓库的方式安装。（加入 -d 是为了显示安装过程中的详细信息，我个人经常用这种方法来判断安装过程是否因为网络或其他问题卡住了）。
 
     注意2：WHB所需的一些第三方包依赖于[node-gyp][10]，在安装这些包之前，请先确认你的机器已经正确安装node-gyp。请参考[node-gyp官方文档][11]来进行安装。Windows用户可能会遇到一些麻烦，因为在Windows上安装node-gyp是一件很痛苦的事。
     
     注意3：Windows用户，请不要将WHB放在路径太深的目录中。因为Windows只支持长度为255个字符以内的路径，所以如果你将本项目放在路径很深的目录中，有很大可能会造成node-gyp编译失败。
     
-    注意4：Windows用户，如果你已经正确安装了node-gyp，但在运行`cnpm install -d`时依然报错，且报错信息为“EPERM, operation not permitted”的话，请尝试`cnpm install -d --force`。
+    注意4：Windows用户，如果你已经正确安装了node-gyp，但在运行`npm install -d`时依然报错，且报错信息为“EPERM, operation not permitted”的话，请尝试`npm install -d --force`。
     
 3. **开始开发**
 
@@ -206,14 +206,10 @@ Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微�
             ],
             javascripts: [
                 'node_modules/jquery/dist/jquery.js'，
-                'node_modules/a-jquery-plugin/a-jquery-plugin.js'
+                'node_modules/swiper/dist/js/swiper.js'
             ],
             fonts: [
-                'node_modules/font-awesome/fonts/fontAwesome-webfont.eot',
-                'node_modules/font-awesome/fonts/fontAwesome-webfont.svg',
-                'node_modules/font-awesome/fonts/fontAwesome-webfont.ttf',
-                'node_modules/font-awesome/fonts/fontAwesome-webfont.woff',
-                'node_modules/font-awesome/fonts/fontAwesome-webfont.woff2'
+                'node_modules/font-awesome/fonts/*'
             ]
         };
 
@@ -227,9 +223,9 @@ Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微�
     
     注意1：文件路径是相对于gulpfile.js的，不是相对于vendors.js的。
     
-    注意2：vendors.js主要还是用来向项目中引入第三方CSS和Font文件。虽然也可以通过这种方式引入第三方JS文件，但还是推荐使用CommonJS的require写法来引入。例如在app/src/javascripts/main.js中用这种方式引入jQuery：
+    注意2：如果你不喜欢通过这种方式引入第三方JS文件，而想使用CommonJS的require写法来引入，也是可以的。例如在app/src/javascripts/main.js中用这种方式引入jQuery：
     
-        var jQuery = $ = require('jquery');
+        var $ = require('jquery');
 
 
 10. **Gulp任务**
