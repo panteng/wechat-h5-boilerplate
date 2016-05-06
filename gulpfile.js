@@ -3,7 +3,6 @@
 var autoprefixer = require('gulp-autoprefixer');
 var browserify = require('gulp-browserify');
 var browserSync = require('browser-sync').create();
-// var cache = require('gulp-cache');
 var concat = require('gulp-concat');
 var del = require('del');
 var gulp = require('gulp');
