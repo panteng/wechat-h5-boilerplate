@@ -22,6 +22,7 @@ $(document).ready(function () {
 
     // init Swiper
     new Swiper('.swiper-container', {
+        mousewheelControl: true,
         effect: 'coverflow',    // slide, fade, coverflow or flip
         speed: 400,
         direction: 'vertical',
