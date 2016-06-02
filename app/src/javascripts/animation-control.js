@@ -1,4 +1,4 @@
-var $ = jQuery = require('jquery');
+var $ = require('jquery');
 
 module.exports = {
     initAnimationItems: function() {
@@ -39,4 +39,4 @@ module.exports = {
             $(this).attr('class', $(this).data('origin-class'));
         });
     }
-}
+};
