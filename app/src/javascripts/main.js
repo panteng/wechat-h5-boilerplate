@@ -8,7 +8,7 @@
     $(document).ready(function () {
         var bgMusic = $('audio').get(0);
         var $btnMusic = $('.btn-music');
-        var $btnSwipe = $('.btn-swipe');
+        var $upArrow = $('.up-arrow');
 
         // background music control
         $btnMusic.click(function () {
@@ -47,9 +47,9 @@
             },
             onTransitionStart: function (swiper) {     // on the last slide, hide .btn-swipe
                 if (swiper.activeIndex === swiper.slides.length - 1) {
-                    $btnSwipe.hide();
+                    $upArrow.hide();
                 } else {
-                    $btnSwipe.show();
+                    $upArrow.show();
                 }
             },
             onTransitionEnd: function (swiper) {       // play animations of the current slide
