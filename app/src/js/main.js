@@ -1,8 +1,30 @@
 import 'babel-polyfill'
-import animationControl from './animation-control.js'
 import Swiper from 'swiper'
+import animationControl from './animation-control.js'
+import TplLoading from '../templates/loading.html'
+import TplAudioLoop from '../templates/audio-loop.html'
+import TplSlide from '../templates/slide.html'
+import 'normalize.css/normalize.css'
+import 'swiper/dist/css/swiper.css'
+import 'animate.css/animate.css'
+import '../scss/main.scss'
 
 $(document).ready(function () {
+
+  let $body = $('body')
+
+  let template = _.template(TplLoading)
+  let _html = template()
+  $body.prepend(_html)
+
+  template = _.template(TplAudioLoop)
+  _html = template()
+  $body.append(_html)
+
+  template = _.template(TplSlide)
+  _html = template()
+  $body.find('.swiper-wrapper').append(_html)
+
   let bgMusic = $('audio').get(0)
   let $btnMusic = $('.btn-music')
   let $upArrow = $('.up-arrow')
