@@ -10,6 +10,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config webpack.dev.js",
+    "start": "npm run dev",
     "build": "webpack --config webpack.prod.js"
   },
   "devDependencies": {
@@ -43,5 +44,14 @@
     "lodash": "^4.17.4",
     "normalize.css": "^7.0.0",
     "swiper": "^4.0.7"
-  }
+  },
+  "engines": {
+    "node": ">= 8.0.0",
+    "npm": ">= 5.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie < 8"
+  ]
 }
