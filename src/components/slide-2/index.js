@@ -7,7 +7,7 @@ export default ($box, data) => {
   let $comp = $(_html)
   $box.append($comp)
   console.log($comp)
-  console.log(data.test)
+  console.log(data.swiper)
   console.log(window.commonData.test)
 }
 

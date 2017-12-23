@@ -12,10 +12,10 @@ $(document).ready(function () {
 
   window.commonData = {test: 'test'}
 
-  let $body = $('body')
+  let $body = $('body'), template, _html
 
-  let template = _.template(TplLoading)
-  let _html = template()
+  template = _.template(TplLoading)
+  _html = template()
   let $loading = $(_html)
   $body.prepend($loading)
 
@@ -43,52 +43,54 @@ $(document).ready(function () {
   })
 
   let $swiperWrapper = $body.find('.swiper-wrapper')
+  // init Swiper
+  let swiper = new Swiper('.swiper-container', {
+    init: false,
+    mousewheelControl: true,
+    effect: 'coverflow',    // slide, fade, coverflow or flip
+    speed: 400,
+    direction: 'vertical',
+    fade: {
+      crossFade: false
+    },
+    coverflow: {
+      rotate: 100,
+      stretch: 0,
+      depth: 300,
+      modifier: 1,
+      slideShadows: false     // do disable shadows for better performance
+    },
+    flip: {
+      limitRotation: true,
+      slideShadows: false     // do disable shadows for better performance
+    },
+    onInit: function (swiper) {
+      AnimationControl.initAnimationItems()  // get items ready for animations
+      AnimationControl.playAnimation(swiper) // play animations of the first slide
+    },
+    onTransitionStart: function (swiper) {     // on the last slide, hide .btn-swipe
+      if (swiper.activeIndex === swiper.slides.length - 1) {
+        $upArrow.hide()
+      } else {
+        $upArrow.show()
+      }
+    },
+    onTransitionEnd: function (swiper) {       // play animations of the current slide
+      AnimationControl.playAnimation(swiper)
+    },
+    onTouchStart: function (swiper, event) {    // mobile devices don't allow audios to play automatically, it has to be triggered by a user event(click / touch).
+      if (!$btnMusic.hasClass('paused') && bgMusic.paused) {
+        bgMusic.play()
+      }
+    }
+  })
 
   const slideLen = 3
   for (let i = 1; i <= slideLen; i++) {
     import(`./components/slide-${i}`).then(module => {
-      module.default($swiperWrapper, window.commonData)
+      module.default($swiperWrapper, {swiper: swiper})
       if (i === slideLen) {
-        // init Swiper
-        new Swiper('.swiper-container', {
-          mousewheelControl: true,
-          effect: 'coverflow',    // slide, fade, coverflow or flip
-          speed: 400,
-          direction: 'vertical',
-          fade: {
-            crossFade: false
-          },
-          coverflow: {
-            rotate: 100,
-            stretch: 0,
-            depth: 300,
-            modifier: 1,
-            slideShadows: false     // do disable shadows for better performance
-          },
-          flip: {
-            limitRotation: true,
-            slideShadows: false     // do disable shadows for better performance
-          },
-          onInit: function (swiper) {
-            AnimationControl.initAnimationItems()  // get items ready for animations
-            AnimationControl.playAnimation(swiper) // play animations of the first slide
-          },
-          onTransitionStart: function (swiper) {     // on the last slide, hide .btn-swipe
-            if (swiper.activeIndex === swiper.slides.length - 1) {
-              $upArrow.hide()
-            } else {
-              $upArrow.show()
-            }
-          },
-          onTransitionEnd: function (swiper) {       // play animations of the current slide
-            AnimationControl.playAnimation(swiper)
-          },
-          onTouchStart: function (swiper, event) {    // mobile devices don't allow audios to play automatically, it has to be triggered by a user event(click / touch).
-            if (!$btnMusic.hasClass('paused') && bgMusic.paused) {
-              bgMusic.play()
-            }
-          }
-        })
+        swiper.init()
       }
     })
   }
