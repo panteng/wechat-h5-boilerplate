@@ -48,19 +48,19 @@ module.exports = merge(common, {
     new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: './app/src/index.html',
+      template: './src/index.html',
       inject: true
     })
   ],
   devtool: 'eval-source-map',
   devServer: {
-    contentBase: './app/dist',
+    contentBase: './dist',
     historyApiFallback: true,
     hot: true,
     compress: true,
     host: '0.0.0.0',
     port: 8083,
-    autoOpenBrowser: true,
+    open: true,
     proxy: {}
   }
 })

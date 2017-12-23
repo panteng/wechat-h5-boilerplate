@@ -4,10 +4,10 @@ const path = require('path')
 
 module.exports = {
   entry: {
-    app: './app/src/js/main.js'
+    app: './src/index.js'
   },
   output: {
-    path: path.resolve(__dirname, 'app/dist'),
+    path: path.resolve(__dirname, 'dist'),
     publicPath: '/'
   },
   resolve: {

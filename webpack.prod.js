@@ -43,7 +43,7 @@ module.exports = merge(common, {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(['app/dist']),
+    new CleanWebpackPlugin(['dist']),
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
@@ -83,7 +83,7 @@ module.exports = merge(common, {
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: './app/src/index.html',
+      template: './src/index.html',
       inject: true,
       minify: {
         removeComments: true,
