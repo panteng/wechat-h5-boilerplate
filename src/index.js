@@ -14,15 +14,35 @@ $(document).ready(function () {
 
   let $body = $('body')
 
-  let $swiperWrapper = $body.find('.swiper-wrapper')
-
   let template = _.template(TplLoading)
   let _html = template()
-  $body.prepend(_html)
+  let $loading = $(_html)
+  $body.prepend($loading)
+
+  // hide loading animation since everything is ready
+  $loading.slideUp()
 
   template = _.template(TplAudioLoop)
   _html = template()
-  $body.append(_html)
+  let $bgMusic = $(_html)
+  let bgMusic = $bgMusic.get(0)
+  $body.append($bgMusic)
+
+  let $btnMusic = $('.btn-music')
+  let $upArrow = $('.up-arrow')
+
+  // background music control
+  $btnMusic.click(function () {
+    if (bgMusic.paused) {
+      bgMusic.play()
+      $(this).removeClass('paused')
+    } else {
+      bgMusic.pause()
+      $(this).addClass('paused')
+    }
+  })
+
+  let $swiperWrapper = $body.find('.swiper-wrapper')
 
   const slideLen = 3
   for (let i = 1; i <= slideLen; i++) {
@@ -73,21 +93,4 @@ $(document).ready(function () {
     })
   }
 
-  let bgMusic = $('audio').get(0)
-  let $btnMusic = $('.btn-music')
-  let $upArrow = $('.up-arrow')
-
-  // background music control
-  $btnMusic.click(function () {
-    if (bgMusic.paused) {
-      bgMusic.play()
-      $(this).removeClass('paused')
-    } else {
-      bgMusic.pause()
-      $(this).addClass('paused')
-    }
-  })
-
-  // hide loading animation since everything is ready
-  $('.loading-overlay').slideUp()
 })
