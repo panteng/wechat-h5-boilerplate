@@ -48,7 +48,7 @@ module.exports = merge(common, {
     new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: './src/index.html',
+      template: 'index.html',
       inject: true
     })
   ],

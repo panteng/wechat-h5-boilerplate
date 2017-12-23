@@ -83,7 +83,7 @@ module.exports = merge(common, {
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: './src/index.html',
+      template: 'index.html',
       inject: true,
       minify: {
         removeComments: true,
