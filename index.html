@@ -10,11 +10,44 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
     <title>Wechat H5 Boilerplate</title>
+    <style>
+        .loading-overlay {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color: #05061b;
+            z-index: 9999;
 
+        }
+
+        .loading-overlay .loading-center {
+            width: 11rem;
+            height: 6rem;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .loading-overlay img {
+            width: 5rem;
+            height: 5rem;
+        }
+    </style>
 </head>
 
 <body>
 
+<div class="loading-overlay">
+    <div class="loading-center">
+        <img src="https://loading.io/spinners/blocks/index.rotating-squares-preloader-gif.svg">
+        <div>请您稍等，加载中...</div>
+    </div>
+</div>
 
 <div class="swiper-container">
     <div class="swiper-wrapper">

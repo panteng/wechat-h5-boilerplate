@@ -1,7 +1,6 @@
 import 'babel-polyfill'
 import Swiper from 'swiper'
 import AnimationControl from './assets/js/animation-control.js'
-import TplLoading from './assets/templates/loading.html'
 import TplAudioLoop from './assets/templates/audio-loop.html'
 import 'normalize.css/normalize.css'
 import 'swiper/dist/css/swiper.css'
@@ -12,18 +11,10 @@ $(document).ready(function () {
 
   window.commonData = {test: 'test'}
 
-  let $body = $('body'), template, _html
+  let $body = $('body'), compiled, _html
 
-  template = _.template(TplLoading)
-  _html = template()
-  let $loading = $(_html)
-  $body.prepend($loading)
-
-  // hide loading animation since everything is ready
-  $loading.slideUp()
-
-  template = _.template(TplAudioLoop)
-  _html = template()
+  compiled = _.template(TplAudioLoop)
+  _html = compiled()
   let $bgMusic = $(_html)
   let bgMusic = $bgMusic.get(0)
   $body.append($bgMusic)
@@ -46,51 +37,40 @@ $(document).ready(function () {
   // init Swiper
   let swiper = new Swiper('.swiper-container', {
     init: false,
-    mousewheelControl: true,
-    effect: 'coverflow',    // slide, fade, coverflow or flip
-    speed: 400,
     direction: 'vertical',
-    fade: {
-      crossFade: false
-    },
-    coverflow: {
-      rotate: 100,
-      stretch: 0,
-      depth: 300,
-      modifier: 1,
-      slideShadows: false     // do disable shadows for better performance
-    },
-    flip: {
-      limitRotation: true,
-      slideShadows: false     // do disable shadows for better performance
-    },
-    onInit: function (swiper) {
-      AnimationControl.initAnimationItems()  // get items ready for animations
-      AnimationControl.playAnimation(swiper) // play animations of the first slide
-    },
-    onTransitionStart: function (swiper) {     // on the last slide, hide .btn-swipe
-      if (swiper.activeIndex === swiper.slides.length - 1) {
-        $upArrow.hide()
-      } else {
-        $upArrow.show()
-      }
-    },
-    onTransitionEnd: function (swiper) {       // play animations of the current slide
-      AnimationControl.playAnimation(swiper)
-    },
-    onTouchStart: function (swiper, event) {    // mobile devices don't allow audios to play automatically, it has to be triggered by a user event(click / touch).
-      if (!$btnMusic.hasClass('paused') && bgMusic.paused) {
-        bgMusic.play()
+    speed: 400,
+    on: {
+      init () {
+        AnimationControl.initAnimationItems()
+        AnimationControl.playAnimation(this)
+      },
+      transitionEnd () {
+        AnimationControl.playAnimation(this)
+      },
+      slideChange () {
+        if (this.activeIndex === 1) {
+          $upArrow.hide()
+        } else {
+          $upArrow.show()
+        }
       }
     }
   })
 
-  const slideLen = 3
+  let $slides = []
+  const slideLen = 2
   for (let i = 1; i <= slideLen; i++) {
     import(`./components/slide-${i}`).then(module => {
-      module.default($swiperWrapper, {swiper: swiper})
-      if (i === slideLen) {
+      let $slide = module.default($swiperWrapper, {swiper: swiper})
+      $slide.data('index', i)
+      $slides.push($slide)
+      if ($slides.length === slideLen) {
+        $slides.sort(function (a, b) {
+          return a.data('index') - b.data('index')
+        })
+        $swiperWrapper.append($slides)
         swiper.init()
+        $body.find('.loading-overlay').hide()
       }
     })
   }
