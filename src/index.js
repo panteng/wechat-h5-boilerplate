@@ -60,8 +60,7 @@ $(document).ready(function () {
   let $slides = []
   const slideLen = 2
   for (let i = 1; i <= slideLen; i++) {
-    import(`./components/slide-${i}`).then(module => {
-      let $slide = module.default($swiperWrapper, {swiper: swiper})
+      let $slide = require(`./components/slide-${i}`).default($swiperWrapper, {swiper: swiper})
       $slide.data('index', i)
       $slides.push($slide)
       if ($slides.length === slideLen) {
@@ -72,7 +71,6 @@ $(document).ready(function () {
         swiper.init()
         $body.find('.loading-overlay').hide()
       }
-    })
   }
 
 })

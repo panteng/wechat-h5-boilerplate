@@ -58,6 +58,7 @@ module.exports = merge(common, {
     historyApiFallback: true,
     hot: true,
     compress: true,
+    // 设置为0.0.0.0 可以匹配localhost 127.0.0.1 本机局域网IP，在地址栏用以上名字IP都可以访问
     host: '0.0.0.0',
     port: 8083,
     open: true,

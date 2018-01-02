@@ -61,25 +61,13 @@ module.exports = merge(common, {
     new OptimizeCSSPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      minChunks: function (module, count) {
-        return (
-          module.resource &&
-          /\.(css|js)$/.test(module.resource) &&
-          module.resource.indexOf(
-            path.join(__dirname, 'node_modules')
-          ) === 0
-        )
+      minChunks: function (module) {
+        return module.context && module.context.includes('node_modules')
       }
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'manifest',
       minChunks: Infinity
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'app',
-      async: 'vendor-async',
-      children: true,
-      minChunks: 3
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
