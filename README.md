@@ -21,11 +21,6 @@ Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微�
  - [开发指南](#开发指南)
  - [待办事项](#待办事项)
 
-## 实时预览
-
-**使用手机**访问下面的地址或扫描下方二维码
-
-[https://panhezeng.github.io/wechat-h5-boilerplate/][2]
 
 ![此处输入图片的描述][3]
 
