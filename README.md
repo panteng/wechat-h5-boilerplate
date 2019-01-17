@@ -1,6 +1,4 @@
-# wechat-h5-boilerplate
 
-> 「让制作H5像制作PPT一样简单！」
 
 Wechat-H5-Boilerplate(以下简称WHB）是一个H5动效模板，专门为微信优化，适合快速构建全屏滚动型H5宣传页。
 
