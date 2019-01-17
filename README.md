@@ -5,7 +5,6 @@
     <p class="animated" data-ani-name="slideInRight" data-ani-duration="1s" data-ani-delay="0.3s">I'm a coder!</p>
 
 
-## 目录
 
  - [实时预览](#实时预览)
  - [依赖列表](#依赖列表)
